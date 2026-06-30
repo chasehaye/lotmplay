@@ -13,7 +13,7 @@ ARG TORCH_CUDA=cu128
 
 # Install PyTorch with CUDA first (large layer, cache it separately)
 RUN pip3 install --no-cache-dir \
-    torch==${TORCH_VERSION} torchaudio==${TORCH_VERSION} --index-url https://download.pytorch.org/whl/${TORCH_CUDA}
+    torch==${TORCH_VERSION} torchaudio==${TORCH_VERSION} torchcodec==0.11.1 --index-url https://download.pytorch.org/whl/${TORCH_CUDA}
 
 # Install TTS and dependencies
 RUN pip3 install --no-cache-dir \
