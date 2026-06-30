@@ -19,9 +19,13 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var corsOrigins = builder.Configuration["Cors:Origins"]
+    ?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    ?? ["http://localhost:5173"];
+
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(corsOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()));
 
@@ -72,7 +76,9 @@ app.UseStaticFiles(new StaticFileOptions
     ContentTypeProvider = contentTypeProvider,
     OnPrepareResponse = ctx =>
     {
-        ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:5173");
+        var origin = ctx.Context.Request.Headers.Origin.ToString();
+        if (corsOrigins.Contains(origin))
+            ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", origin);
     },
 });
 

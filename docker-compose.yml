@@ -25,6 +25,7 @@ services:
       ConnectionStrings__DefaultConnection: Host=postgres;Database=player;Username=player;Password=${POSTGRES_PASSWORD}
       Auth__Token: ${AUTH_TOKEN}
       Auth__Password: ${AUTH_PASSWORD}
+      Cors__Origins: ${CORS_ORIGINS}
       Uploads__Path: /uploads
     ports:
       - "32000:5000"
