@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install PyTorch with CUDA first (large layer, cache it separately)
 RUN pip3 install --no-cache-dir \
-    torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+    torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 
 # Install TTS and dependencies
 RUN pip3 install --no-cache-dir \
