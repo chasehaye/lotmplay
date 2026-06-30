@@ -1,6 +1,11 @@
 import type { AudioFile, Audiobook, ChapterPreview, TtsJob } from '@/types';
 
-const BASE = '/api';
+const API_ORIGIN = import.meta.env.VITE_API_URL ?? '';
+const BASE = `${API_ORIGIN}/api`;
+
+export function fileUrl(path: string): string {
+  return `${API_ORIGIN}${path}`;
+}
 
 function authHeaders(): Record<string, string> {
   const token = localStorage.getItem('auth_token');

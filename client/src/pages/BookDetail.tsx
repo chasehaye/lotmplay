@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type { AudioFile, Audiobook, TtsJob } from '@/types';
 import { UploadModal } from '@/components/modals/UploadModal';
 import { usePlayer } from '@/context/PlayerContext';
-import { api } from '@/lib/api';
+import { api, fileUrl } from '@/lib/api';
 import { formatTime } from '@/lib/format';
 
 export function BookDetail() {
@@ -87,7 +87,7 @@ export function BookDetail() {
           className="group relative h-48 w-48 shrink-0 cursor-pointer overflow-hidden rounded-xl bg-white/5 md:h-36 md:w-36"
         >
           {book.coverUrl ? (
-            <img src={book.coverUrl} alt={book.title} className="h-full w-full object-cover" />
+            <img src={fileUrl(book.coverUrl!)} alt={book.title} className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full items-center justify-center">
               <BookOpen size={48} className="text-accent-bright/40" />

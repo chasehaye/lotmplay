@@ -4,7 +4,7 @@ import { BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import type { Audiobook } from '@/types';
-import { api } from '@/lib/api';
+import { api, fileUrl } from '@/lib/api';
 
 export function Home() {
   const [books, setBooks] = useState<Audiobook[]>([]);
@@ -52,7 +52,7 @@ export function Home() {
             <div className="mb-3 aspect-square overflow-hidden rounded-md bg-white/5">
               {book.coverUrl ? (
                 <img
-                  src={book.coverUrl}
+                  src={fileUrl(book.coverUrl!)}
                   alt={book.title}
                   className="h-full w-full object-cover"
                 />

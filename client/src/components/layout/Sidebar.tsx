@@ -4,7 +4,7 @@ import { BookOpen, Home, Library, X } from 'lucide-react';
 import { Link, NavLink } from 'react-router-dom';
 
 import type { Audiobook } from '@/types';
-import { api } from '@/lib/api';
+import { api, fileUrl } from '@/lib/api';
 import { formatTime } from '@/lib/format';
 import { usePlayer } from '@/context/PlayerContext';
 
@@ -56,7 +56,7 @@ export function Sidebar({ onClose }: SidebarProps) {
             >
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-white/5">
                 {book.coverUrl ? (
-                  <img src={book.coverUrl} alt={book.title} className="h-full w-full object-cover" />
+                  <img src={fileUrl(book.coverUrl!)} alt={book.title} className="h-full w-full object-cover" />
                 ) : (
                   <div className="flex h-full items-center justify-center">
                     <BookOpen size={18} className="text-accent-bright/40" />

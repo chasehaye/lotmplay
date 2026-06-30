@@ -45,6 +45,8 @@ jobs:
           tags: ghcr.io/${{ env.REPO }}/player-nginx:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
 
       # TTS image only rebuilds when tts/ changes (it's large due to PyTorch)
       - name: Check if tts/ changed

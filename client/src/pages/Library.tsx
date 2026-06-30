@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import type { Audiobook } from '@/types';
 import { CreateBookModal } from '@/components/modals/CreateBookModal';
-import { api } from '@/lib/api';
+import { api, fileUrl } from '@/lib/api';
 import { formatTime } from '@/lib/format';
 
 export function Library() {
@@ -62,7 +62,7 @@ export function Library() {
               <div className="h-14 w-14 shrink-0 overflow-hidden rounded-md bg-white/5">
                 {book.coverUrl ? (
                   <img
-                    src={book.coverUrl}
+                    src={fileUrl(book.coverUrl!)}
                     alt={book.title}
                     className="h-full w-full object-cover"
                   />

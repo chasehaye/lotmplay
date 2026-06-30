@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useRef, useState, useEffect } from 'react';
 
 import type { AudioFile, Audiobook } from '@/types';
-import { api } from '@/lib/api';
+import { api, fileUrl } from '@/lib/api';
 
 interface PlayerContextValue {
   currentBook: Audiobook | null;
@@ -42,7 +42,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     setCurrentTrack(track);
     setIsPlaying(true);
     if (audioRef.current) {
-      audioRef.current.src = track.fileUrl;
+      audioRef.current.src = fileUrl(track.fileUrl);
       audioRef.current.play();
     }
   }

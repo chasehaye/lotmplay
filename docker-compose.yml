@@ -6,6 +6,8 @@ services:
       POSTGRES_DB: player
       POSTGRES_USER: player
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -23,6 +25,8 @@ services:
       ConnectionStrings__DefaultConnection: Host=postgres;Database=player;Username=player;Password=${POSTGRES_PASSWORD}
       Auth__Token: ${AUTH_TOKEN}
       Uploads__Path: /uploads
+    ports:
+      - "32000:5000"
     volumes:
       - uploads:/uploads
     networks:
@@ -50,7 +54,7 @@ services:
     depends_on:
       - server
     ports:
-      - "80:80"
+      - "14000:80"
     networks:
       - internal
 
