@@ -5,7 +5,7 @@ Loads the model once on startup, stays warm between requests.
 Usage:
     python server.py
 
-Listens on http://localhost:8765
+Listens on 0.0.0.0:8765
 POST /generate  { "text_file": "path/to/chapter.txt", "out_file": "path/to/output.wav" }
 GET  /health    -> { "status": "ready" }
 """
@@ -171,4 +171,4 @@ def generate(req: GenerateRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8765)
+    uvicorn.run(app, host="0.0.0.0", port=8765)
