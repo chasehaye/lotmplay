@@ -10,7 +10,7 @@ public class TtsWorker(TtsQueue queue, IServiceScopeFactory scopeFactory, IConfi
     : BackgroundService
 {
     private readonly HttpClient _http = new() { Timeout = TimeSpan.FromMinutes(30) };
-    private const string TtsBaseUrl = "http://127.0.0.1:8765";
+    private readonly string TtsBaseUrl = config["Tts:BaseUrl"] ?? "http://127.0.0.1:8765";
 
     protected override async Task ExecuteAsync(CancellationToken ct)
     {

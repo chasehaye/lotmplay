@@ -26,6 +26,7 @@ services:
       Auth__Token: ${AUTH_TOKEN}
       Auth__Password: ${AUTH_PASSWORD}
       Cors__Origins: ${CORS_ORIGINS}
+      Tts__BaseUrl: http://tts:8765
       Uploads__Path: /uploads
     ports:
       - "32000:5000"
