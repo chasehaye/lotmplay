@@ -83,6 +83,8 @@ async def lifespan(app: FastAPI):
     print(f"Loading XTTS v2 on {device}...", flush=True)
 
     from TTS.api import TTS
+    from TTS.tts.configs.xtts_config import XttsConfig
+    torch.serialization.add_safe_globals([XttsConfig])
     model = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
     reference_path = ensure_trimmed_reference()
