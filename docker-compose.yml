@@ -1,0 +1,87 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: player
+      POSTGRES_USER: player
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  server:
+    image: ghcr.io/${GITHUB_REPO}/player-server:latest
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - tts
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:5000
+      ConnectionStrings__DefaultConnection: Host=postgres;Database=player;Username=player;Password=${POSTGRES_PASSWORD}
+      Auth__Token: ${AUTH_TOKEN}
+      Uploads__Path: /uploads
+    volumes:
+      - uploads:/uploads
+    networks:
+      - internal
+
+  tts:
+    image: ghcr.io/${GITHUB_REPO}/player-tts:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - tts_voices:/app/voices
+      - tts_model_cache:/root/.local/share/tts
+    networks:
+      - internal
+
+  nginx:
+    image: ghcr.io/${GITHUB_REPO}/player-nginx:latest
+    restart: unless-stopped
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/drive2/postgres
+
+  uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/drive2/uploads
+
+  tts_voices:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/drive2/tts/voices
+
+  tts_model_cache:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/drive2/tts/cache
+
+networks:
+  internal:

@@ -1,0 +1,21 @@
+[Unit]
+Description=Player .NET API Server
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=player
+WorkingDirectory=/srv/player/server
+ExecStart=/usr/bin/dotnet /srv/player/server/server.dll
+Restart=always
+RestartSec=5
+
+# Secrets passed as environment variables (never in appsettings.json)
+EnvironmentFile=/srv/player/.env
+
+# .NET environment
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://localhost:5000
+
+[Install]
+WantedBy=multi-user.target

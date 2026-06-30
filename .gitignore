@@ -1,0 +1,36 @@
+# Frontend
+client/node_modules/
+client/dist/
+client/.env.local
+
+# Backend build
+server/bin/
+server/obj/
+
+# Secrets - never commit these
+server/appsettings.Development.json
+server/appsettings.Local.json
+server/appsettings.Production.json
+
+# Uploads - user data, not source code
+uploads/
+
+# TTS voices - large binary files, sync separately
+tts/voices/
+tts/__pycache__/
+tts/*.pyc
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.user
+*.suo
+.vs/

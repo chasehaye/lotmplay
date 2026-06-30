@@ -1,0 +1,20 @@
+[Unit]
+Description=Player TTS FastAPI Microservice
+After=network.target
+
+[Service]
+Type=simple
+User=player
+WorkingDirectory=/srv/player/tts
+ExecStart=/srv/player/tts/.venv/bin/python server.py
+Restart=always
+RestartSec=10
+
+# Give CUDA time to initialize before marking as failed
+TimeoutStartSec=120
+
+# GPU access
+Environment=CUDA_VISIBLE_DEVICES=0
+
+[Install]
+WantedBy=multi-user.target
