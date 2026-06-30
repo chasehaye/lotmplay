@@ -77,7 +77,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /srv/player
+            cd /home/server/player
             echo "GITHUB_REPO=${{ github.repository }}" >> .env
             docker compose pull
             docker compose up -d

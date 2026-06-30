@@ -26,24 +26,24 @@ mkdir -p /mnt/drive2/tts/cache
 chown 999:999 /mnt/drive2/postgres
 
 # --- App directory ---
-mkdir -p /srv/player
-cd /srv/player
+mkdir -p /home/server/player
+cd /home/server/player
 
 # Copy docker-compose.yml here (or git clone the repo)
 # cp /path/to/docker-compose.yml .
 
 # --- .env file ---
-# Copy deploy/.env.example to /srv/player/.env and fill in values
+# Copy deploy/.env.example to /home/server/player/.env and fill in values
 # cp deploy/.env.example .env
 # nano .env
 
 echo ""
 echo "Setup complete. Next steps:"
-echo "  1. Copy docker-compose.yml to /srv/player/"
-echo "  2. Copy deploy/.env.example to /srv/player/.env and fill in secrets"
+echo "  1. Copy docker-compose.yml to /home/server/player/"
+echo "  2. Copy deploy/.env.example to /home/server/player/.env and fill in secrets"
 echo "  3. Add SSH public key for GitHub Actions to ~/.ssh/authorized_keys"
 echo "  4. Log in to ghcr.io: docker login ghcr.io -u YOUR_GITHUB_USERNAME"
-echo "  5. Run: cd /srv/player && docker compose up -d"
+echo "  5. Run: cd /home/server/player && docker compose up -d"
 echo ""
 echo "  To copy voices to the drive (run from your local machine):"
 echo "  rsync -avz tts/voices/ YOUR_USER@YOUR_SERVER_IP:/mnt/drive2/tts/voices/"
