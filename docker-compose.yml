@@ -46,6 +46,7 @@ services:
               count: 1
               capabilities: [gpu]
     volumes:
+      - uploads:/uploads
       - tts_voices:/app/voices
       - tts_model_cache:/root/.local/share/tts
     networks:
